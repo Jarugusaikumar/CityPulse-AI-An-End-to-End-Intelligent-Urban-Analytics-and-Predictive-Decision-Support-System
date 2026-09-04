@@ -6,6 +6,7 @@ Run with:
 
 Pages: Home, EDA, ML Prediction, Clustering, Forecasting, NLP, Anomaly Detection, AI Assistant
 """
+import subprocess
 import sys
 from pathlib import Path
 
@@ -218,7 +219,33 @@ def page_assistant():
             st.info("Mention a specific zone (e.g. Z1-Z6) so I can retrieve grounded data for it.")
 
 
+def ensure_project_assets():
+    if (DATA_DIR / "master.csv").exists() and (MODELS_DIR / "congestion_model.pkl").exists():
+        return True
+
+    st.warning("No data found. Running the pipeline to generate datasets and train models...")
+    with st.spinner("Generating synthetic data and training models. This may take a few minutes..."):
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "run_pipeline.py")],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+        )
+
+    if result.returncode != 0:
+        st.error("The pipeline failed while generating assets. Please check the console output.")
+        st.code(result.stdout)
+        st.code(result.stderr)
+        return False
+
+    st.success("Data and models are ready. Refreshing the app...")
+    return True
+
+
 def main():
+    if not ensure_project_assets():
+        return
+
     df = load_master()
     st.sidebar.title("CityPulse AI")
     page = st.sidebar.radio("Navigate", [

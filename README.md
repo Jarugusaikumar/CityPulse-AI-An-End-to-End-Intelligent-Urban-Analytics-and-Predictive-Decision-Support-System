@@ -21,12 +21,14 @@ pip install -r requirements.txt
 # 3. Run the full pipeline (data → models, ~2-3 minutes)
 python run_pipeline.py
 
-# 4. Launch the interactive dashboard
-streamlit run app/app.py
+# 4. Launch the interactive dashboard from the project root
+streamlit run app/app.py --server.address 0.0.0.0 --server.port 8501
 
 # 5. (Optional, separate terminal) Launch the REST API
 uvicorn api.main:app --reload
 ```
+
+For Streamlit deployment, always launch from the repo root. The app auto-generates data and trained models when the project is first started in a fresh environment.
 
 Then open the Streamlit URL it prints (usually http://localhost:8501)
 and/or the API docs at http://localhost:8000/docs.
