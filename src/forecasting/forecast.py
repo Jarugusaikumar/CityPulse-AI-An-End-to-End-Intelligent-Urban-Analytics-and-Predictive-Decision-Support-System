@@ -66,4 +66,5 @@ def run(zone_id="Z1", horizon=24):
 
 
 if __name__ == "__main__":
-    run()
+    for zone_id in [f"Z{i + 1}" for i in range(6)]:
+        run(zone_id=zone_id)

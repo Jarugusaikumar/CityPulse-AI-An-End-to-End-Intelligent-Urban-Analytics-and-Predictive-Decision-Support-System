@@ -150,8 +150,7 @@ def page_forecasting():
     zone = st.selectbox("Select Zone", [f"Z{i+1}" for i in range(6)])
     path = MODELS_DIR / f"forecast_{zone}.csv"
     if not path.exists():
-        st.warning(f"No forecast saved for {zone}. Run `python src/forecasting/forecast.py` "
-                    f"(edit the zone_id there) first.")
+        st.warning(f"No forecast saved for {zone}. Run `python src/forecasting/forecast.py` first.")
         return
     df = pd.read_csv(path, parse_dates=["timestamp"]).set_index("timestamp")
     st.line_chart(df[["actual", "sarima_forecast", "naive_forecast"]])
