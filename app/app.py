@@ -238,8 +238,10 @@ def ensure_project_assets():
         st.code(result.stderr)
         return False
 
+    load_master.clear()
+    load_model.clear()
     st.success("Data and models are ready. Refreshing the app...")
-    return True
+    st.rerun()
 
 
 def main():
