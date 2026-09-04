@@ -6,8 +6,5 @@ venv/
 *.db
 data/raw/*.csv
 data/processed/*.csv
-data/feature_engineered/*.csv
-models/*.pkl
-models/*.csv
 .streamlit/
 .DS_Store

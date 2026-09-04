@@ -1,0 +1,5 @@
+model,accuracy,f1_weighted
+Logistic Regression,0.9389,0.9321
+Decision Tree,0.9643,0.9626
+Random Forest,0.9605,0.9577
+XGBoost,0.9749,0.9743
